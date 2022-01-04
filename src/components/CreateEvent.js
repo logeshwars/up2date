@@ -1,57 +1,159 @@
-import React from "react";
+import React,{useState} from "react";
 import "./CreateEvent.css";
+import { db} from "../firebase";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { collection,doc, setDoc, Timestamp } from "firebase/firestore"; 
 function CreateEvent() {
+  const [shareImage, setShareImage] = useState("");
+  const [title,setTitle]=useState("");
+  const [desc,setDesc]=useState("")
+  const [cordi,setCordi]=useState("")
+  const [cordNo,setCordNo]=useState("")
+  const [depart,setDepart]=useState("")
+  const [sDate,setSDate]=useState("")
+  const [eDate,setEDate]=useState("")
+  const [rDate,setRDate]=useState("")
+  const [rNeed,setRNeed]=useState("")
+  const [downloadUrl,setdownloadURL]=useState("")
+  const [loading,setLoading]=useState(false);
+  const handleImage = (e) => {
+    const image = e.target.files[0];
+    if (image === "" || image === undefined) {
+      alert(`not an image ,this file is a ${typeof image}`);
+      return;
+    }
+    setShareImage(image);
+  };
+  const handleSubmit=(e)=>
+  {
+    e.preventDefault();
+
+const storage = getStorage();
+    const upload =ref(storage, `images/${shareImage.name}`)
+   
+const uploadTask = uploadBytesResumable(upload, shareImage.image);
+
+uploadTask.on('state_changed', 
+  (snapshot) => {
+    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    console.log('Upload is ' + progress + '% done');
+    switch (snapshot.state) {
+      case 'running':
+        setLoading(true);
+        break;
+        default:
+          break;
+    }
+  }, 
+  (error) => {
+    // Handle unsuccessful uploads
+  }, 
+  () => {
+    // Handle successful uploads on complete
+    // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+      setdownloadURL(downloadURL)
+      console.log('File available at', downloadURL);
+    });
+  }
+);
+const send= async()=>{
+  const newuserRef = doc(collection(db, "events"));
+  const data={
+            shareImg: downloadUrl,
+            title:title,
+            description:desc,
+            cordinator:cordi,
+            cordinatorPH:cordNo,
+            department:depart,
+            startdate:sDate,
+            enddate:eDate,
+            closedate:rDate,
+            needed:rNeed,
+          }
+          await setDoc(newuserRef , data).then(()=>{
+           
+
+        });
+      }
+    send();
+        setLoading(false);
+        }
   return (
+    
     <div className="createEvent">
       <div className="createEventTitle">
         <h3>Create Event</h3>
         <div className="eventInputs">
+        <div className="eventInside">
+        <label>Event Image</label>
+        <input
+                      type="file"
+                      accept="image/gif,image/jpeg"
+                      name="image"
+                      id="image"
+                      style={{ display: "none" }}
+                      onChange={handleImage}
+                    />
+                      {!shareImage && (
+                    <p>
+                      <label  className="upImage" htmlFor="image">Select a image for share</label>
+                    </p>)}
+                    {shareImage && (
+                      <img className="uploadedImg" alt="" src={URL.createObjectURL(shareImage)} />
+                    )}
+                     </div>
+                     <hr className="hr" />
           <div className="eventInside">
             <label>Event Title</label>
-            <input placeholder="Title" />
+            <input placeholder="Title" onChange={(e)=>setTitle(e.target.value)}/>
           </div>
           <div className="eventInside">
           <label>Event Decription</label>
-            <textarea placeholder="Description"></textarea>
+            <textarea placeholder="Description" onChange={(e)=>setDesc(e.target.value)}></textarea>
           </div>
+          <hr className="hr" />
           <div className="eventInside">
           <div className="eventInside">
             <label>Cordinator</label>
-            <input placeholder="Cordinator" />
+            <input placeholder="Cordinator" onChange={(e)=>setCordi(e.target.value)}/>
           </div>
           <div className="eventInside">
             <label>Cordinator Ph.NO</label>
-            <input placeholder="Cordinator No" type="tel" />
+            <input placeholder="Cordinator No" type="tel" onChange={(e)=>setCordNo(e.target.value)}/>
           </div>
           </div>
           <div className="eventInside">
             <label>Department</label>
-            <input placeholder="Department" />
+            <input placeholder="Department" onChange={(e)=>setDepart(e.target.value)}/>
           </div>
+          <hr className="hr" />
           <div className="eventInside">
             <div className="eventInside">
               <label>Start Date</label>
-              <input placeholder="Start Date" type="date" />
+              <input placeholder="Start Date" type="date" onChange={(e)=>setSDate(e.target.value)}/>
             </div>{" "}
             <div className="eventInside">
               <label>End Date</label>
-              <input placeholder="Title" type="date" />
+              <input placeholder="Title" type="date" onChange={(e)=>setEDate(e.target.value)}/>
             </div>
           </div>
           <div className="eventInside">
             <label>Registeration End</label>
-            <input placeholder="Title" type="date" />
+            <input placeholder="Title" type="date" onChange={(e)=>setRDate(e.target.value)}/>
           </div>
+          <hr className="hr" />
           <div className="eventInside">
             <label>Registeration Needed or not?</label>
             <div className="eventInsideButtons">
-            <button >Yes</button>
-            <button>No</button>
+            <button onChange={()=>setRNeed("YES")}>Yes</button>
+            <button  onChange={()=>setRNeed("NO")}>No</button>
             </div>
            
           </div>
           <div className="eventInside eventCenterButton">
-            <button className="eventCreate">Create</button>
+          <form onSubmit={(e)=>handleSubmit(e)}> <button className="eventCreate">Create</button></form>
+           
           </div>
         </div>
       </div>

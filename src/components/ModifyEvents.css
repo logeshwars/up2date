@@ -4,7 +4,7 @@
     
     font-size: 0.8;
     margin-top: 10px;
-    width: 80vw;
+    width: 78.5vw;
     overflow-x: scroll;
 }
 .table::-webkit-scrollbar
@@ -45,16 +45,7 @@
     font-size: 0.7rem;
     padding: 5px 10px;
 }
-.table table td input,textarea{
-    font-size: .7rem;
-    padding: 8px 10px;
-    background-color: white;
-    border: var(--border);
-    border-radius: 3px;
-    width: 150px;
-    height: 20px;
-    box-shadow: var(--shadow);
-}
+
 .tableWrap
 {
     width: 200px;
@@ -68,4 +59,15 @@
     font-size: 0.7rem;
     border-radius: 20px;
     padding: 5px 10px;
+}
+.hr
+{
+    border:none;
+    background-color: rgba(192, 192, 192, 0.726);
+    
+    height: 1px;
+}
+.uploadedImg
+{
+    width: 150px;
 }

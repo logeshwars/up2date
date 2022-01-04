@@ -120,3 +120,13 @@
     transition: 0.2s ease-in-out;
     transform: scale(1.1);
 }
+.upImage
+{
+    padding: 10px 50px !important;
+    cursor: pointer;
+    color:rgb(66, 65, 65) !important;
+    border: var(--border) !important;
+    background-color: white !important;
+    box-shadow: var(--shadow);
+    border-radius: 3px;
+}
