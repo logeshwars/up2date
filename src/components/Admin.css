@@ -55,15 +55,18 @@ border:var(--border)
 {
     background-color: rgba(65, 225, 126, 0.301);
     padding: 6px 30px;
+    border:var(--border);
     font-weight: 500;
     border-radius: 3px;
     font-size: 0.8rem;
-}
+}   
 .adminRightNav
 {
     flex:8
 }
 .adminRightNav
 {
-height: 100vh;
+height:max-content;
+padding: 10px 10px;
+
 }

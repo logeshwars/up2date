@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./Admin.css";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Navigate } from "react-router-dom";
+import CreateEvent from "./CreateEvent";
+import ModifyEvents from "./ModifyEvents";
 function Admin() {
   const [gotoMain, setgotoMain] = useState(false);
   const [admin, setAdmin] = useState("");
-   useEffect(()=>{
+  useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -15,8 +17,8 @@ function Admin() {
       }
     });
     console.log(admin);
-   },[])
-  
+  }, []);
+
   return (
     <div className="admin">
       <div className="sideNav">
@@ -24,7 +26,7 @@ function Admin() {
         <div>
           <img
             alt=""
-            src={!admin.photoURL?admin.photoURL:"images/avatar.png"}
+            src={!admin.photoURL ? admin.photoURL : "images/avatar.png"}
           />
         </div>
         <h3>{admin.displayName}</h3>
@@ -94,7 +96,7 @@ function Admin() {
           </button>
         </div>
       </div>
-      <div className="adminRightNav"></div>
+      <div className="adminRightNav"><ModifyEvents/></div>
     </div>
   );
 }

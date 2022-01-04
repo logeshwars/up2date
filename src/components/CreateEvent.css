@@ -1,0 +1,122 @@
+.createEvent
+{
+    height: max-content;
+    background-color: white;
+    padding: 10px 10px;
+    border-radius: 3px;
+    border: var(--border);
+    width: var(100% - 40px);
+}
+.createEventTitle h3
+{
+    color: rgba(0, 0, 0, 0.686);
+    padding: 8px 20px;
+    text-align: center;
+    border: var(--border);
+    background-color: rgb(255, 255, 255);
+    border-radius: 3px;
+    /* box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.349); */
+   
+}
+.eventInputs
+{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 5%;
+}
+.eventInside
+{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    gap: 30px;
+    
+}
+.eventInside label
+{
+    font-size: 0.8rem;
+}
+.eventInside input,textarea
+{
+    width: 250px;
+    font-size: 0.8rem;
+    padding: 8px 10px;
+    border: var(--border);
+    box-shadow: var(--shadow);
+    border-radius: 3px;
+}
+.eventInside label
+{
+    background-color: #15f3333d;
+    padding: 8px 10px ;
+    border-radius: 3px;
+    color:green;
+
+    border: 1px solid var(--primary);
+}
+.eventInsideButtons
+{
+    width: max-content !important;
+}
+.eventInsideButtons button
+{
+    border:var(--border);
+    box-shadow: var(--shadow);
+    color: green;
+    font-size: 0.9rem;
+    padding: 8px 53px;
+    background-color: rgb(255, 255, 255);
+    font-weight: 600;
+}
+.eventInsideButtons button:first-child
+{
+    border-top-left-radius: 3px;
+    border-bottom-left-radius:3px;
+}
+.eventInsideButtons button:first-child:hover, .eventInsideButtons button:first-child:focus
+{
+    background-color: var(--primary);
+    color: black;
+}
+.eventInsideButtons button:last-child:hover, .eventInsideButtons button:last-child:focus
+{
+    background-color: red;
+    color: white;
+}
+.eventInsideButtons button:last-child
+{
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    color: red;
+}
+.eventInside input::placeholder,textarea::placeholder
+{
+    font-size: 0.8rem;
+    color: rgb(110, 110, 110);
+   
+}
+.eventInside div{
+    width: 50%;
+}
+.eventCreate
+{
+    border: none;
+    box-shadow: var(--shadow);
+    background-image:linear-gradient(to top,green,var(--primary));
+    color: rgb(255, 255, 255);
+    padding: 10px 100px;
+    font-size: 0.9rem;
+    border-radius: 3px;
+    font-weight: bold;
+    
+}
+.eventCenterButton
+{
+    justify-content: center;
+}
+.eventCreate:hover
+{
+    transition: 0.2s ease-in-out;
+    transform: scale(1.1);
+}
