@@ -15,7 +15,7 @@
     align-items: center;
     box-shadow: var(--shadow);
     padding:20px 0px;
-    gap:20px;
+    gap:10px;
 }
 .sideNav div img
 {

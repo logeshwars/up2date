@@ -1,6 +1,71 @@
+
 .table
 {
-    width: 100%;
-    background-color: violet;
+    
+    font-size: 0.8;
+    margin-top: 10px;
+    width: 80vw;
     overflow-x: scroll;
+}
+.table::-webkit-scrollbar
+{
+    height: 10px;
+}
+.table::-webkit-scrollbar-thumb
+{
+    background-color: var(--primary);
+    height:10px;
+    border-radius: 10px;
+}
+.table::-webkit-scrollbar-track
+{
+    border-radius: 10px;
+    height: 10px;
+    box-shadow: inset 1px 1px 3px silver;
+}
+.table table
+{
+    width: 1300px;
+    border-collapse: collapse;
+}
+.table table th
+{
+    font-size: .7rem;
+    padding: 8px 10px;
+    background-color: white;
+    border-bottom:10px solid whitesmoke ;
+}
+.table table tr
+{
+    background-color: white;
+    padding: 5px 10px;
+    border-bottom:10px solid whitesmoke ;
+}
+.table table td{
+    font-size: 0.7rem;
+    padding: 5px 10px;
+}
+.table table td input,textarea{
+    font-size: .7rem;
+    padding: 8px 10px;
+    background-color: white;
+    border: var(--border);
+    border-radius: 3px;
+    width: 150px;
+    height: 20px;
+    box-shadow: var(--shadow);
+}
+.tableWrap
+{
+    width: 200px;
+    font-size: .7rem;
+}
+.tableUpdate
+{
+    border: none;
+    box-shadow: var(--shadow);
+    background-color: var(--primary);
+    font-size: 0.7rem;
+    border-radius: 20px;
+    padding: 5px 10px;
 }

@@ -1,10 +1,10 @@
 import React from 'react'
 import './ModifyEvents.css'
-function ModifyEvents() {
+function ClosedEvents() {
     return (
         <div className='modifyEvents'>
             <div className="createEventTitle">
-        <h3>Modify Events</h3>
+        <h3>Closed Events</h3>
         </div>
         <div className='table'>
             <table>
@@ -19,7 +19,7 @@ function ModifyEvents() {
                     <th>End Date</th>
                     <th>Closing Date</th>
                     <th>Registering</th>
-                    <th>Update</th>
+                    <th>Participations</th>
                 </tr>
                 <tr>
                     <td>1</td>
@@ -37,7 +37,7 @@ function ModifyEvents() {
                     <td>10-10-2000</td>
                     <td>10-10-2000</td>
                     <td>Yes</td>
-                    <td><button className='tableUpdate'>Update</button></td>
+                    <td>100</td>
                 </tr>
                 <tr>
                     <td>1</td>
@@ -55,12 +55,12 @@ function ModifyEvents() {
                     <td>10-10-2000</td>
                     <td>10-10-2000</td>
                     <td>Yes</td>
-                    <td><button className='tableUpdate'>Update</button></td>
-                </tr>
+                    <td>100</td>
+                    </tr>
             </table>
         </div>
         </div>
     )
 }
 
-export default ModifyEvents
+export default ClosedEvents

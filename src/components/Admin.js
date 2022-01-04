@@ -4,9 +4,14 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Navigate } from "react-router-dom";
 import CreateEvent from "./CreateEvent";
 import ModifyEvents from "./ModifyEvents";
+import DeleteEvents from "./DeleteEvents";
+import ClosedEvents from "./ClosedEvents";
+import Users from "./Users";
+import Participation from "./Participation";
 function Admin() {
   const [gotoMain, setgotoMain] = useState(false);
   const [admin, setAdmin] = useState("");
+  const [navNo, setNavNo] = useState(1);
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
@@ -17,8 +22,14 @@ function Admin() {
       }
     });
     console.log(admin);
-  }, []);
-
+  }, [admin]);
+  useEffect(() => {
+    var btns = document.getElementsByClassName("navBtns");
+    const changeColor=(element)=>{
+      element[1].style.backgroundColor="white";
+    }
+    Object.entries(btns).forEach(changeColor)
+  }, [navNo]);
   return (
     <div className="admin">
       <div className="sideNav">
@@ -31,7 +42,7 @@ function Admin() {
         </div>
         <h3>{admin.displayName}</h3>
         <div>
-          <button>
+          <button className="navBtns" onClick={(e) => {setNavNo(1);e.target.style.backgroundColor="#15f333;"}}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -47,7 +58,7 @@ function Admin() {
           </button>
         </div>
         <div>
-          <button>
+          <button className="navBtns" onClick={() => setNavNo(2)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -62,7 +73,46 @@ function Admin() {
           </button>
         </div>
         <div>
-          <button>
+          <button className="navBtns" onClick={() => setNavNo(3)}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-people-fill"
+              viewBox="0 0 16 16"
+            >
+              <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+              <path
+                fill-rule="evenodd"
+                d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"
+              />
+              <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+            </svg>
+            <span>Users details</span>
+          </button>
+        </div>
+        <div>
+          <button className="navBtns" onClick={() => setNavNo(4)}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-person-check-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"
+              />
+              <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+            </svg>
+            <span>Participations</span>
+          </button>
+        </div>
+        <div>
+          <button className="navBtns" onClick={() => setNavNo(5)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -81,7 +131,7 @@ function Admin() {
           </button>
         </div>
         <div>
-          <button>
+          <button className="navBtns" onClick={() => setNavNo(6)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -96,7 +146,14 @@ function Admin() {
           </button>
         </div>
       </div>
-      <div className="adminRightNav"><ModifyEvents/></div>
+      <div className="adminRightNav">
+        {navNo === 1 && <CreateEvent />}
+        {navNo === 2 && <ModifyEvents />}
+        {navNo === 3 && <Users />}
+        {navNo === 4 && <Participation />}
+        {navNo === 5 && <DeleteEvents />}
+        {navNo === 6 && <ClosedEvents />}
+      </div>
     </div>
   );
 }
