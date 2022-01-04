@@ -1,0 +1,69 @@
+.admin
+{
+    display: flex;
+}
+.sideNav
+{
+    flex: 2;
+    border-right: var(--border);
+    height: calc(100vh - 100px );
+    position: sticky;
+    top:60px;
+    display: flex;
+    background-color: white;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: var(--shadow);
+    padding:20px 0px;
+    gap:20px;
+}
+.sideNav div img
+{
+width: 50px;
+background-color: white;
+padding: 10px;
+border-radius: 50%;
+border:var(--border)
+}
+.sideNav div
+{
+    margin-top: 20px;
+}
+.sideNav div button
+{
+    border:none;
+    padding: 10px 40px;
+    border-radius: 30px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    border:1px solid var(--primary);
+    align-items: center;
+    box-shadow: var(--shadow);
+    gap:10px;
+}
+.sideNav div button span
+{
+    font-size: 0.8rem;
+}
+.sideNav div button:hover
+{
+    cursor: pointer;
+    transition: 0.2s;
+    background-color: var(--primary);
+}
+.sideNav h3
+{
+    background-color: rgba(65, 225, 126, 0.301);
+    padding: 6px 30px;
+    font-weight: 500;
+    border-radius: 3px;
+    font-size: 0.8rem;
+}
+.adminRightNav
+{
+    flex:8
+}
+.adminRightNav
+{
+height: 100vh;
+}
