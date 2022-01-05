@@ -1,6 +1,12 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import './ModifyEvents.css'
-function ClosedEvents() {
+function ClosedEvents({events}) {
+    const[event,setEvent]=useState([]);
+    useEffect(()=>{
+    events.forEach((doc) => {
+        setEvent((prev)=>[...prev,doc.data()])
+      });
+    },[events])
     return (
         <div className='modifyEvents'>
             <div className="createEventTitle">
@@ -19,44 +25,23 @@ function ClosedEvents() {
                     <th>End Date</th>
                     <th>Closing Date</th>
                     <th>Registering</th>
-                    <th>Participations</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>E-horizon</td>
-                    <td><p className='tableWrap'>all events will be conducted
-                    all events will be conducted
-                    all events will be conducted
-                    all events will be conducted
+             {event.map((e,index)=>
+                (<tr>
+                    <td>{index}</td>
+                    <td>{e.title}</td>
+                    <td><p className='tableWrap'>{e.description}
                     </p>
                     </td>
-                    <td> Logeshwar</td>
-                    <td>1234567890</td>
-                    <td>MCA</td>
-                    <td>10-10-2000</td>
-                    <td>10-10-2000</td>
-                    <td>10-10-2000</td>
-                    <td>Yes</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>E-horizon</td>
-                    <td><p className='tableWrap'>all events will be conducted
-                    all events will be conducted
-                    all events will be conducted
-                    all events will be conducted
-                    </p>
-                    </td>
-                    <td> Logeshwar</td>
-                    <td>1234567890</td>
-                    <td>MCA</td>
-                    <td>10-10-2000</td>
-                    <td>10-10-2000</td>
-                    <td>10-10-2000</td>
-                    <td>Yes</td>
-                    <td>100</td>
-                    </tr>
+                    <td>{e.cordinator}</td>
+                    <td>{e.cordinatorPH}</td>
+                    <td>{e.department}</td>
+                    <td>{e.startdate}</td>
+                    <td>{e.enddate}</td>
+                    <td>{e.closedate}</td>
+                    <td>{e.needed}</td>
+                </tr>))} 
+
             </table>
         </div>
         </div>

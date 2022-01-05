@@ -1,6 +1,16 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
+import { db } from "../firebase";
+import { doc, deleteDoc } from "firebase/firestore";
 import './ModifyEvents.css'
-function DeleteEvents() {
+function DeleteEvents({events}) {
+    const[event,setEvent]=useState([]);
+    const [eventid,setEventId]=useState([])
+    useEffect(()=>{
+    events.forEach((doc) => {
+        setEvent((prev)=>[...prev,doc.data()])
+        setEventId((prev)=>[...prev,doc.id])
+      });
+    },[events])
     return (
         <div className='modifyEvents'>
             <div className="createEventTitle">
@@ -21,46 +31,39 @@ function DeleteEvents() {
                     <th>Registering</th>
                     <th>Update</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>E-horizon</td>
-                    <td><p className='tableWrap'>all events will be conducted
-                    all events will be conducted
-                    all events will be conducted
-                    all events will be conducted
+             {event.map((e,index)=>
+                (<tr>
+                    <td>{index}</td>
+                    <td>{e.title}</td>
+                    <td><p className='tableWrap'>{e.description}
                     </p>
                     </td>
-                    <td> Logeshwar</td>
-                    <td>1234567890</td>
-                    <td>MCA</td>
-                    <td>10-10-2000</td>
-                    <td>10-10-2000</td>
-                    <td>10-10-2000</td>
-                    <td>Yes</td>
-                    <td><button style={{backgroundColor:"red",color:"white"}} className='tableUpdate'>Delete</button></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>E-horizon</td>
-                    <td><p className='tableWrap'>all events will be conducted
-                    all events will be conducted
-                    all events will be conducted
-                    all events will be conducted
-                    </p>
-                    </td>
-                    <td> Logeshwar</td>
-                    <td>1234567890</td>
-                    <td>MCA</td>
-                    <td>10-10-2000</td>
-                    <td>10-10-2000</td>
-                    <td>10-10-2000</td>
-                    <td>Yes</td>
-                    <td><button style={{backgroundColor:"red",color:"white"}}  className='tableUpdate'>Delete</button></td>
-                </tr>
+                    <td>{e.cordinator}</td>
+                    <td>{e.cordinatorPH}</td>
+                    <td>{e.department}</td>
+                    <td>{e.startdate}</td>
+                    <td>{e.enddate}</td>
+                    <td>{e.closedate}</td>
+                    <td>{e.needed}</td>
+                    <td>
+                <button
+                  style={{ backgroundColor: "red", color: "white" }}
+                  className="tableUpdate"
+                  onClick={async () => {
+                    await deleteDoc(doc(db, "events", eventid[index]));
+
+                  }}
+                >
+                  Remove
+                </button>
+              </td>
+                </tr>))} 
+
             </table>
         </div>
         </div>
     )
+
 }
 
 export default DeleteEvents

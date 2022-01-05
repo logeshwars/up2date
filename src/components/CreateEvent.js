@@ -13,7 +13,7 @@ function CreateEvent() {
   const [sDate,setSDate]=useState("")
   const [eDate,setEDate]=useState("")
   const [rDate,setRDate]=useState("")
-  const [rNeed,setRNeed]=useState("")
+  const [rNeed,setRNeed]=useState("YES")
   const [downloadUrl,setdownloadURL]=useState("")
   const [loading,setLoading]=useState(false);
   const handleImage = (e) => {
@@ -53,30 +53,40 @@ uploadTask.on('state_changed',
     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
       setdownloadURL(downloadURL)
-      console.log('File available at', downloadURL);
+      const send= async()=>{
+        const newuserRef = doc(collection(db, "events"));
+        const data={
+                  shareImg: downloadURL,
+                  title:title,
+                  description:desc,
+                  cordinator:cordi,
+                  cordinatorPH:cordNo,
+                  department:depart,
+                  startdate:sDate,
+                  enddate:eDate,
+                  closedate:rDate,
+                  needed:rNeed,
+                }
+                await setDoc(newuserRef , data).then(()=>{
+                 setCordNo("")
+                 setTitle("")
+                 setCordi("")
+                 setDepart("");
+                 setDesc("");
+                 setdownloadURL("");
+                 setShareImage("");
+                 setSDate("");
+                 setEDate("");
+                 setRDate("");
+      
+              });
+            }
+         send();
+      
     });
   }
 );
-const send= async()=>{
-  const newuserRef = doc(collection(db, "events"));
-  const data={
-            shareImg: downloadUrl,
-            title:title,
-            description:desc,
-            cordinator:cordi,
-            cordinatorPH:cordNo,
-            department:depart,
-            startdate:sDate,
-            enddate:eDate,
-            closedate:rDate,
-            needed:rNeed,
-          }
-          await setDoc(newuserRef , data).then(()=>{
-           
-
-        });
-      }
-    send();
+console.log("dd",downloadUrl)
         setLoading(false);
         }
   return (
@@ -106,48 +116,48 @@ const send= async()=>{
                      <hr className="hr" />
           <div className="eventInside">
             <label>Event Title</label>
-            <input placeholder="Title" onChange={(e)=>setTitle(e.target.value)}/>
+            <input required value={title} placeholder="Title" onChange={(e)=>setTitle(e.target.value)}/>
           </div>
           <div className="eventInside">
           <label>Event Decription</label>
-            <textarea placeholder="Description" onChange={(e)=>setDesc(e.target.value)}></textarea>
+            <textarea  required value={desc}  placeholder="Description" onChange={(e)=>setDesc(e.target.value)}></textarea>
           </div>
           <hr className="hr" />
           <div className="eventInside">
           <div className="eventInside">
             <label>Cordinator</label>
-            <input placeholder="Cordinator" onChange={(e)=>setCordi(e.target.value)}/>
+            <input  required value={cordi}  placeholder="Cordinator" onChange={(e)=>setCordi(e.target.value)}/>
           </div>
           <div className="eventInside">
             <label>Cordinator Ph.NO</label>
-            <input placeholder="Cordinator No" type="tel" onChange={(e)=>setCordNo(e.target.value)}/>
+            <input required value={cordNo} placeholder="Cordinator No" type="tel" onChange={(e)=>setCordNo(e.target.value)}/>
           </div>
           </div>
           <div className="eventInside">
             <label>Department</label>
-            <input placeholder="Department" onChange={(e)=>setDepart(e.target.value)}/>
+            <input  required value={depart}  placeholder="Department" onChange={(e)=>setDepart(e.target.value)}/>
           </div>
           <hr className="hr" />
           <div className="eventInside">
             <div className="eventInside">
               <label>Start Date</label>
-              <input placeholder="Start Date" type="date" onChange={(e)=>setSDate(e.target.value)}/>
+              <input  required value={sDate}  placeholder="Start Date" type="date" onChange={(e)=>setSDate(e.target.value)}/>
             </div>{" "}
             <div className="eventInside">
               <label>End Date</label>
-              <input placeholder="Title" type="date" onChange={(e)=>setEDate(e.target.value)}/>
+              <input  required value={eDate}  placeholder="Title" type="date" onChange={(e)=>setEDate(e.target.value)}/>
             </div>
           </div>
           <div className="eventInside">
             <label>Registeration End</label>
-            <input placeholder="Title" type="date" onChange={(e)=>setRDate(e.target.value)}/>
+            <input  required value={rDate}  placeholder="Title" type="date" onChange={(e)=>setRDate(e.target.value)}/>
           </div>
           <hr className="hr" />
           <div className="eventInside">
             <label>Registeration Needed or not?</label>
             <div className="eventInsideButtons">
-            <button onChange={()=>setRNeed("YES")}>Yes</button>
-            <button  onChange={()=>setRNeed("NO")}>No</button>
+            <button onClick={()=>setRNeed("YES")}>Yes</button>
+            <button  onClick={()=>setRNeed("NO")}>No</button>
             </div>
            
           </div>

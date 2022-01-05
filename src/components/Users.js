@@ -1,66 +1,69 @@
-import React from 'react'
-import './ModifyEvents.css'
-function Users() {
-    return (
-        <div className='modifyEvents'>
-            <div className="createEventTitle">
-        <h3>Delete Events</h3>
-        </div>
-        <div className='table'>
-            <table>
-                <tr>
-                    <th>NO</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Cordinator</th>
-                    <th>Phone-NO</th>
-                    <th>Department</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Closing Date</th>
-                    <th>Registering</th>
-                    <th>Update</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>E-horizon</td>
-                    <td><p className='tableWrap'>all events will be conducted
-                    all events will be conducted
-                    all events will be conducted
-                    all events will be conducted
-                    </p>
-                    </td>
-                    <td> Logeshwar</td>
-                    <td>1234567890</td>
-                    <td>MCA</td>
-                    <td>10-10-2000</td>
-                    <td>10-10-2000</td>
-                    <td>10-10-2000</td>
-                    <td>Yes</td>
-                    <td><button style={{backgroundColor:"red",color:"white"}} className='tableUpdate'>Delete</button></td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>E-horizon</td>
-                    <td><p className='tableWrap'>all events will be conducted
-                    all events will be conducted
-                    all events will be conducted
-                    all events will be conducted
-                    </p>
-                    </td>
-                    <td> Logeshwar</td>
-                    <td>1234567890</td>
-                    <td>MCA</td>
-                    <td>10-10-2000</td>
-                    <td>10-10-2000</td>
-                    <td>10-10-2000</td>
-                    <td>Yes</td>
-                    <td><button style={{backgroundColor:"red",color:"white"}}  className='tableUpdate'>Delete</button></td>
-                </tr>
-            </table>
-        </div>
-        </div>
-    )
+import React, { useEffect, useState } from "react";
+import "./ModifyEvents.css";
+import { db } from "../firebase";
+import { doc, deleteDoc } from "firebase/firestore";
+function Users({ users }) {
+  const [user, setuser] = useState([]);
+  const [userid,setUserId]=useState([])
+  useEffect(() => {
+    users.forEach((doc) => {
+      setuser((prev) => [...prev, doc.data()]);
+      setUserId((prev) => [...prev, doc.id]);
+    });
+  }, []);
+  console.log(users);
+  return (
+    <div className="modifyEvents">
+      <div className="createEventTitle">
+        <h3>Users Details</h3>
+      </div>
+      <div className="table">
+        <table>
+          <tr>
+            <th>NO</th>
+            <th>Profile</th>
+            <th>Name</th>
+            <th>RollNO</th>
+            <th>Department</th>
+            <th>Section</th>
+            <th>Year</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Entered Date</th>
+            <th>Update</th>
+          </tr>
+          {user.map((u, index) => (
+            <tr>
+              <td>{index}</td>
+              <td>
+                <img src={u.photo} style={{ width: "50px" }} />
+              </td>
+              <td>{u.name}</td>
+              <td>{u.rollno}</td>
+              <td>{u.department}</td>
+              <td>{u.section}</td>
+              <td>{u.year}</td>
+              <td>{u.email}</td>
+              <td>{u.phone}</td>
+              <td>{u.date?.toDate().toLocaleDateString()}</td>
+              <td>
+                <button
+                  style={{ backgroundColor: "red", color: "white" }}
+                  className="tableUpdate"
+                  onClick={async () => {
+                    await deleteDoc(doc(db, "users", userid[index]));
+
+                  }}
+                >
+                  Remove
+                </button>
+              </td>
+            </tr>
+          ))}
+        </table>
+      </div>
+    </div>
+  );
 }
 
-export default Users
+export default Users;

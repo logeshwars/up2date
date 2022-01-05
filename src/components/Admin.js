@@ -23,10 +23,7 @@ function Admin() {
     setEvents(eventSnapshot);
     const userSnapshot = await getDocs(collection(db, "users"));
     setUsers(userSnapshot);
-    userSnapshot.forEach((doc) => {
-      setUsers(doc.data());
       // console.log(doc.id, " => ", doc.data());
-    });
   }
   getData();
   },[])
