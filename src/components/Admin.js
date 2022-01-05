@@ -1,17 +1,35 @@
 import React, { useEffect, useState } from "react";
 import "./Admin.css";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { db} from "../firebase";
 import { Navigate } from "react-router-dom";
 import CreateEvent from "./CreateEvent";
 import ModifyEvents from "./ModifyEvents";
 import DeleteEvents from "./DeleteEvents";
 import ClosedEvents from "./ClosedEvents";
+import { collection, getDocs } from "firebase/firestore";
 import Users from "./Users";
 import Participation from "./Participation";
 function Admin() {
   const [gotoMain, setgotoMain] = useState(false);
   const [admin, setAdmin] = useState("");
   const [navNo, setNavNo] = useState(1);
+  const [events,setEvents]=useState();
+  const [users,setUsers]=useState();
+  useEffect(()=>
+  {
+    const getData=async()=>{
+    const eventSnapshot = await getDocs(collection(db, "events"));
+    setEvents(eventSnapshot);
+    const userSnapshot = await getDocs(collection(db, "users"));
+    setUsers(userSnapshot);
+    userSnapshot.forEach((doc) => {
+      setUsers(doc.data());
+      // console.log(doc.id, " => ", doc.data());
+    });
+  }
+  getData();
+  },[])
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
@@ -148,11 +166,11 @@ function Admin() {
       </div>
       <div className="adminRightNav">
         {navNo === 1 && <CreateEvent />}
-        {navNo === 2 && <ModifyEvents />}
-        {navNo === 3 && <Users />}
+        {navNo === 2 && <ModifyEvents events={events} />}
+        {navNo === 3 && <Users users={users}/>}
         {navNo === 4 && <Participation />}
-        {navNo === 5 && <DeleteEvents />}
-        {navNo === 6 && <ClosedEvents />}
+        {navNo === 5 && <DeleteEvents events={events}/>}
+        {navNo === 6 && <ClosedEvents events={events}/>}
       </div>
     </div>
   );

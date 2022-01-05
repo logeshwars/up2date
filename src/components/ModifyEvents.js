@@ -1,6 +1,15 @@
 import React from 'react'
+import { useEffect, useState } from 'react/cjs/react.development'
 import './ModifyEvents.css'
-function ModifyEvents() {
+function ModifyEvents({events}) {
+    const[event,setEvent]=useState([{}]);
+    useEffect(()=>{
+    events.forEach((doc) => {
+        setEvent(prevState =>([...prevState,doc.data()]));
+        // console.log(doc.data());
+      });
+     console.log(event);
+    },[events])
     return (
         <div className='modifyEvents'>
             <div className="createEventTitle">
