@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Login from "./Login";
 import "./NavBar.css";
-
 function NavBar() {
   const [showLogin,setShowLogin]=useState(false);
   const showlogin=()=>{

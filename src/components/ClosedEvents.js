@@ -1,9 +1,11 @@
 import React,{useState,useEffect} from 'react'
+import date from '../util/currentDate'
 import './ModifyEvents.css'
 function ClosedEvents({events}) {
     const[event,setEvent]=useState([]);
     useEffect(()=>{
     events.forEach((doc) => {
+        if(date>doc.data().enddate)
         setEvent((prev)=>[...prev,doc.data()])
       });
     },[events])

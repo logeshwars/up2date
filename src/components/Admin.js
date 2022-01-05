@@ -73,7 +73,7 @@ function Admin() {
           </button>
         </div>
         <div>
-          <button className="navBtns" onClick={() => setNavNo(2)}>
+          <button className="navBtns" onClick={(e) =>{ setNavNo(2);}}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"

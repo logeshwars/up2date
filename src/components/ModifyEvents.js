@@ -1,10 +1,12 @@
 import React from 'react'
+import date from '../util/currentDate'
 import { useEffect, useState } from 'react/cjs/react.development'
 import './ModifyEvents.css'
 function ModifyEvents({events}) {
     const[event,setEvent]=useState([]);
     useEffect(()=>{
     events.forEach((doc) => {
+        if(date<=new Date(doc.data().enddate))
         setEvent((prev)=>[...prev,doc.data()])
       });
     },[events])

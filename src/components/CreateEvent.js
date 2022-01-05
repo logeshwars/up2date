@@ -78,7 +78,7 @@ uploadTask.on('state_changed',
                  setSDate("");
                  setEDate("");
                  setRDate("");
-      
+                 setLoading(false);
               });
             }
          send();
@@ -86,8 +86,7 @@ uploadTask.on('state_changed',
     });
   }
 );
-console.log("dd",downloadUrl)
-        setLoading(false);
+       
         }
   return (
     
@@ -167,6 +166,11 @@ console.log("dd",downloadUrl)
           </div>
         </div>
       </div>
+      {loading&&
+      <div className="popup" style={{backgroundColor:"white"}}>
+        <img width={500} src="https://miro.medium.com/max/1400/0*ptDX0HfJCYpo9Pcs.gif" alt=""/>
+        </div>
+}
     </div>
   );
 }
