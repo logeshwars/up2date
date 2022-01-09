@@ -3,11 +3,13 @@
     padding: 10px 20px;
     width: calc(100% - 40px);
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     box-shadow: var(--shadow);
     background-color: white;
     position: sticky;
     top: 0px;
+    gap: 20px;
     z-index: 2;
     }
     .loginButton
@@ -91,4 +93,29 @@
         bottom: 3px;
         color: rgba(0, 0, 0, 0.507);
         text-align: center;
+    }
+    .navBarInside
+    {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .searchBoxMin
+    {
+        display: none;
+    }
+    @media screen and (max-width:720px) {
+        .searchBox
+        {
+         display: none;
+        }
+        .searchBoxMin
+        {
+         display:flex;
+         width: 100%;
+        }
+        .searchBoxMin button
+        {
+            flex: 1;
+        }
     }
