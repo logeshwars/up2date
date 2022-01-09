@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import "./Admin.css";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db} from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import { Navigate } from "react-router-dom";
 import CreateEvent from "./CreateEvent";
 import ModifyEvents from "./ModifyEvents";
 import DeleteEvents from "./DeleteEvents";
 import ClosedEvents from "./ClosedEvents";
-import { collection, getDocs } from "firebase/firestore";
 import Users from "./Users";
 import Participation from "./Participation";
 function Admin() {
@@ -18,15 +19,14 @@ function Admin() {
   const [users,setUsers]=useState();
   useEffect(()=>
   {
-    const getData=async()=>{
-    const eventSnapshot = await getDocs(collection(db, "events"));
-    setEvents(eventSnapshot);
-    const userSnapshot = await getDocs(collection(db, "users"));
-    setUsers(userSnapshot);
-      // console.log(doc.id, " => ", doc.data());
-  }
-  getData();
-  },[])
+      onSnapshot(
+        collection(db, "users"), 
+        (snapshot) => {
+          snapshot.forEach((doc) => {
+            console.log(doc.data());
+        });})
+         
+  },[events,users])
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {

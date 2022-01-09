@@ -36,7 +36,7 @@ function Users({ users }) {
             <tr>
               <td>{index}</td>
               <td>
-                <img src={u.photo} style={{ width: "50px" }} />
+                <img src={u.photo} alt="" style={{ width: "50px" }} />
               </td>
               <td>{u.name}</td>
               <td>{u.rollno}</td>

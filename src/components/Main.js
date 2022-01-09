@@ -3,27 +3,13 @@ import './Main.css'
 import { collection, getDocs } from "firebase/firestore";
 import { provider,db } from "../firebase";
 import Card from './Card';
-function Main() {
-    const [events,setEvents]=useState();
-    useEffect(()=>
-    {
-      const getData=async()=>{
-      const eventSnapshot = await getDocs(collection(db, "events"));
-      setEvents(eventSnapshot);
-    }
-    getData();
-    },[])
+function Main({events}) {
     return (
+        <> <div><h3 className="heading">Upcoming Kongu Engneering College Events</h3></div>
         <div className="main">
-            <Card/>
-            <Card/>
-            <Card/>
-            <Card/>
-            <Card/>
-            <Card/>
-            <Card/>
-            <Card/>
+            {events.map((event,key)=>(<Card key={key} event={event}/>))}
         </div>
+        </>
     )
 }
 
