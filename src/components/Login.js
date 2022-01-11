@@ -1,34 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import "./Login.css";
-import { Navigate } from 'react-router-dom';
-import { provider,db } from "../firebase";
+import { provider} from "../firebase";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import Register from "./Register";
-import { doc, getDoc } from "firebase/firestore";
 function Login({ closeLogin }) {
-  const[adminId,setAdminId]=useState("");
-  const[user,setUser]=useState();
-  useEffect(()=>
-  {
-    const adminRef = doc(db, "Admin","adminuser");
-    const getadmin =async()=>{
-    const adminSnap = await getDoc(adminRef);
-    setAdminId(adminSnap._document.data.value.mapValue.fields.user.stringValue);
-    }
-    getadmin();
-  },[])
+  
   const [showRegister, setShowRegister] = useState(false);
   const login = () => {
     const auth = getAuth();
     signInWithPopup(auth, provider)
       .then((result) => {
-       setUser(result.user.email);
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         console.log(result);
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
+        closeLogin()
         // ...
       })
       .catch((error) => {
@@ -44,7 +32,6 @@ function Login({ closeLogin }) {
   };
   return (
     <div className="popup">
-      {user===adminId&&(<Navigate to="admin" replace />)}
       {!showRegister ? (
         <div className="login">
           <div className="logoContainer">

@@ -104,6 +104,32 @@
     {
         display: none;
     }
+    ul{
+        list-style-type:none ;
+    }
+    .profile li div
+    {
+        padding: 5px 20px;
+        border-radius: 20px;
+        border:var(--border);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+
+    }
+    .profile li img
+    {
+        width: 20px;
+        border-radius: 50%;
+    }
+    .profileInner
+    {
+        border: var(--border);
+        box-shadow: var(--shadow);
+    }
     @media screen and (max-width:720px) {
         .searchBox
         {
