@@ -14,6 +14,7 @@ function AdminNav() {
     
     return (
         <div className="navBar">
+          <div className='navBarInside'>
              {gotoMain&&(<Navigate to="/" replace />)}
         <div>
           <span className="logo">
@@ -24,6 +25,7 @@ function AdminNav() {
         <h3>Admin</h3>
         <div className="loginButtonHolder">
           <button className="loginButton" onClick={()=>signOut()}>Sign out</button>
+        </div>
         </div>
         </div>
     )

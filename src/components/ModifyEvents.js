@@ -3,13 +3,7 @@ import date from '../util/currentDate'
 import { useEffect, useState } from 'react/cjs/react.development'
 import './ModifyEvents.css'
 function ModifyEvents({events}) {
-    const[event,setEvent]=useState([]);
-    useEffect(()=>{
-    events.forEach((doc) => {
-        if(date<=new Date(doc.data().enddate))
-        setEvent((prev)=>[...prev,doc.data()])
-      });
-    },[events])
+   
     return (
         <div className='modifyEvents'>
             <div className="createEventTitle">
@@ -30,7 +24,7 @@ function ModifyEvents({events}) {
                     <th>Registering</th>
                     <th>Update</th>
                 </tr>
-             {event.map((e,index)=>
+             {events.map((e,index)=>
                 (<tr>
                     <td>{index}</td>
                     <td>{e.title}</td>

@@ -107,6 +107,10 @@
     ul{
         list-style-type:none ;
     }
+    .profile
+    {
+        height: max-content;
+    }
     .profile li div
     {
         padding: 5px 20px;
@@ -125,10 +129,34 @@
         width: 20px;
         border-radius: 50%;
     }
+    .profile:hover .profileInner
+    {
+        display: block;
+    }
     .profileInner
     {
         border: var(--border);
         box-shadow: var(--shadow);
+        position:absolute;
+        padding: 0px;
+        background-color: white;
+        right: 30px;
+        margin-top: 2px;
+        border-radius: 3px;
+        display: none;
+    }
+    .profileInner li{
+        text-align: left;
+        padding: 5px 30px;
+    }
+    .profileInner li:hover
+{
+    background-color: rgba(0, 0, 0, 0.068);
+}
+
+    .profileInner li:first-child
+    {
+border-bottom: var(--border);
     }
     @media screen and (max-width:720px) {
         .searchBox

@@ -3,15 +3,6 @@ import "./ModifyEvents.css";
 import { db } from "../firebase";
 import { doc, deleteDoc } from "firebase/firestore";
 function Users({ users }) {
-  const [user, setuser] = useState([]);
-  const [userid,setUserId]=useState([])
-  useEffect(() => {
-    users.forEach((doc) => {
-      setuser((prev) => [...prev, doc.data()]);
-      setUserId((prev) => [...prev, doc.id]);
-    });
-  }, []);
-  console.log(users);
   return (
     <div className="modifyEvents">
       <div className="createEventTitle">
@@ -32,7 +23,7 @@ function Users({ users }) {
             <th>Entered Date</th>
             <th>Update</th>
           </tr>
-          {user.map((u, index) => (
+          {users.map((u, index) => (
             <tr>
               <td>{index}</td>
               <td>
@@ -51,7 +42,7 @@ function Users({ users }) {
                   style={{ backgroundColor: "red", color: "white" }}
                   className="tableUpdate"
                   onClick={async () => {
-                    await deleteDoc(doc(db, "users", userid[index]));
+                    //await deleteDoc(doc(db, "users", userid[index]));
 
                   }}
                 >

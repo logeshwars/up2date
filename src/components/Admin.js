@@ -11,22 +11,10 @@ import DeleteEvents from "./DeleteEvents";
 import ClosedEvents from "./ClosedEvents";
 import Users from "./Users";
 import Participation from "./Participation";
-function Admin() {
+function Admin({users,events}) {
   const [gotoMain, setgotoMain] = useState(false);
   const [admin, setAdmin] = useState("");
   const [navNo, setNavNo] = useState(1);
-  const [events,setEvents]=useState();
-  const [users,setUsers]=useState();
-  useEffect(()=>
-  {
-      onSnapshot(
-        collection(db, "users"), 
-        (snapshot) => {
-          snapshot.forEach((doc) => {
-            console.log(doc.data());
-        });})
-         
-  },[events,users])
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {

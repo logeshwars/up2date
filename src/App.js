@@ -6,9 +6,10 @@ import Hero from './components/Hero'
 import NavBar from './components/NavBar';
 import Admin from './components/Admin';
 import AdminNav from './components/AdminNav';
+
+import date from './util/currentDate'
 import { auth, db} from "./firebase";
 import { collection, getDocs } from "firebase/firestore";
-import date from './util/currentDate'
 import { doc, onSnapshot } from "firebase/firestore";
 import EventDetails from "./components/EventDetails";
 function App() {
@@ -17,6 +18,7 @@ function App() {
   const[admins,setAdmins]=useState([]);
   const[admin,setAdmin]=useState();
   const[user,setUser]=useState();
+  const[userParticipations,setUserParticipations]=useState([])
   const[unknownUser,setUnknownUser]=useState(false);
   useEffect(()=>
   {
@@ -24,7 +26,6 @@ function App() {
       collection(db, "events"), 
       (snapshot) => {
         setEvents([])
-        setUsers([]);
         snapshot.forEach((doc) => {
           if(date<=new Date(doc.data().enddate))
           setEvents((prev) => [...prev, doc.data()]);
@@ -36,8 +37,25 @@ function App() {
         console.log(error);
       });
       onSnapshot(
+        collection(db, "participations"), 
+        (snapshot) => {
+          setUserParticipations([])
+          snapshot.forEach((doc) => {
+            if(user?.email===doc.data()?.email){
+            
+            setUserParticipations((prev) => [...prev, doc.data()]);
+            }
+          });
+         
+        },
+        (error) => {
+          console.log(error);
+        });
+
+      onSnapshot(
         collection(db, "users"), 
         (snapshot) => {
+          setUsers([]);
           snapshot.forEach((doc) => {
             setUsers((prev) => [...prev, doc.data()]);
         });})
@@ -51,7 +69,6 @@ function App() {
   useEffect(()=>{ auth.onAuthStateChanged((us)=>{
     setAdmin();
     setUser();
-    console.log(us);
     let userVerify=users.find((u)=>u?.email===us.email)
     let adminVerify=admins.find((a)=>a?.email===us.email)
     if(adminVerify!==undefined)
@@ -67,14 +84,14 @@ function App() {
       setUnknownUser(true);
     }
   })
-},[admins,users])
+},[admins,users,userParticipations])
   return (
     <div className="app">
       <Router>
         <Routes>
           <Route path='/'  element={<><NavBar admin={admin} user={user}/><Hero/> <Main user={user} events={events}/></>}/>
-          <Route path='details'  element={<><NavBar/><EventDetails/></>}/>
-          <Route path='admin'  element={<><AdminNav/><Admin/></>}/>
+          <Route path='details'  element={<><NavBar admin={admin}  user={user}/><EventDetails userParticipations={userParticipations}/></>}/>
+          <Route path='admin'  element={<><AdminNav/><Admin  events={events} users={users}/></>}/>
         </Routes>
       </Router>
     </div>

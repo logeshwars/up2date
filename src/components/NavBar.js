@@ -10,6 +10,13 @@ function NavBar({ admin, user }) {
     if (showLogin) setShowLogin(false);
     else setShowLogin(true);
   };
+  const signOut=()=>{
+    auth
+    .signOut()
+    .then(() => {
+    })
+    .catch((error) => console.log(error.message));
+  }
   return (
     <div className="navBar">
       {admin !== undefined && <Navigate to="admin" replace />}
@@ -53,7 +60,7 @@ function NavBar({ admin, user }) {
                   <li>
                     <span>My Events</span>
                   </li>
-                  <li><span>Log out</span></li>
+                  <li onClick={()=>signOut()}><span>Log out</span></li>
                 </ul>
               </li>
             </ul>

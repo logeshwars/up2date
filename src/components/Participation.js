@@ -1,6 +1,25 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import './ModifyEvents.css'
-function DeleteEvents() {
+import { auth, db} from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
+function Participation() {
+    const[userParticipations,setUserParticipations]=useState([])
+    useEffect(()=>{
+        onSnapshot(
+            collection(db, "participations"), 
+            (snapshot) => {
+              setUserParticipations([])
+              snapshot.forEach((doc) => {
+                setUserParticipations((prev) => [...prev, doc.data()]);
+              });
+             
+            },
+            (error) => {
+              console.log(error);
+            });
+    
+    },[])
     return (
         <div className='modifyEvents'>
             <div className="createEventTitle">
@@ -59,4 +78,4 @@ function DeleteEvents() {
     )
 }
 
-export default DeleteEvents
+export default Participation
