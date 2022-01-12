@@ -65,7 +65,7 @@ function App() {
         });
     })
          
-  },[])
+  },[user])
   useEffect(()=>{ auth.onAuthStateChanged((us)=>{
     setAdmin();
     setUser();
