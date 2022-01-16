@@ -2,8 +2,8 @@ import React from 'react'
 import date from '../util/currentDate'
 import { useEffect, useState } from 'react/cjs/react.development'
 import './ModifyEvents.css'
-function ModifyEvents({events}) {
-   
+function ModifyEvents({events,eventsId,setNavNo,setEditEventId,setEditEvent}) {
+   console.log(eventsId)
     return (
         <div className='modifyEvents'>
             <div className="createEventTitle">
@@ -25,7 +25,7 @@ function ModifyEvents({events}) {
                     <th>Update</th>
                 </tr>
              {events.map((e,index)=>
-                (<tr>
+                (<tr key={index}>
                     <td>{index}</td>
                     <td>{e.title}</td>
                     <td><p className='tableWrap'>{e.description}
@@ -38,7 +38,7 @@ function ModifyEvents({events}) {
                     <td>{e.enddate}</td>
                     <td>{e.closedate}</td>
                     <td>{e.needed}</td>
-                    <td><button className='tableUpdate' >Update</button></td>
+                    <td><button className='tableUpdate' onClick={()=>{setNavNo(7);setEditEventId(eventsId[index]);setEditEvent(e)}}>Update</button></td>
                 </tr>))} 
 
             </table>

@@ -6,11 +6,10 @@ import Hero from './components/Hero'
 import NavBar from './components/NavBar';
 import Admin from './components/Admin';
 import AdminNav from './components/AdminNav';
-
 import date from './util/currentDate'
 import { auth, db} from "./firebase";
-import { collection, getDocs } from "firebase/firestore";
-import { doc, onSnapshot } from "firebase/firestore";
+import { collection} from "firebase/firestore";
+import {onSnapshot } from "firebase/firestore";
 import EventDetails from "./components/EventDetails";
 function App() {
   const [events,setEvents]=useState([]);
@@ -90,8 +89,8 @@ function App() {
       <Router>
         <Routes>
           <Route path='/'  element={<><NavBar admin={admin} user={user}/><Hero/> <Main user={user} events={events}/></>}/>
-          <Route path='details'  element={<><NavBar admin={admin}  user={user}/><EventDetails userParticipations={userParticipations}/></>}/>
-          <Route path='admin'  element={<><AdminNav/><Admin  events={events} users={users}/></>}/>
+          <Route path='/details'  element={<><NavBar admin={admin}  user={user}/><EventDetails userParticipations={userParticipations}/></>}/>
+          <Route path='/admin'  element={<><AdminNav/><Admin  events={events} users={users}/></>}/>
         </Routes>
       </Router>
     </div>

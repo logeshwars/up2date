@@ -4,9 +4,10 @@
 }
 .sideNav
 {
-    flex: 2;
+    flex: 1.8;
     border-right: var(--border);
-    height: calc(100vh - 100px );
+    min-height: calc(100vh - 100px);
+    max-height: max-content;
     position: sticky;
     top:60px;
     display: flex;
@@ -15,31 +16,48 @@
     align-items: center;
     box-shadow: var(--shadow);
     padding:20px 0px;
-    gap:10px;
+    gap:1px;
 }
-.sideNav div img
+.sideNav div:first-child
 {
-width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.AdminProfile
+{
+width: 40px;
 background-color: white;
 padding: 10px;
 border-radius: 50%;
-border:var(--border)
+box-shadow: var(--shadow);
+}
+.iconImage
+{
+    width: 25px;
 }
 .sideNav div
 {
-    margin-top: 20px;
+    margin-top: 15px;
+    width:calc(100% - 10px);
+    padding:0px 5px;
+}
+.sideNav hr
+{
+    border: none;
+    height: 1px;
+    background-color: rgba(43, 255, 0, 0.295);
 }
 .sideNav div button
 {
     border:none;
-    padding: 10px 40px;
-    border-radius: 30px;
-    background-color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    background-color: white;
     display: flex;
-    border:1px solid var(--primary);
+    border:none;
+    width: 100%;
     align-items: center;
-    box-shadow: var(--shadow);
-    gap:10px;
+    gap:30px;
 }
 .sideNav div button span
 {
@@ -49,24 +67,26 @@ border:var(--border)
 {
     cursor: pointer;
     transition: 0.2s;
-    background-color: var(--primary) !important;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--primary);
 }
 .sideNav h3
 {
-    background-color: rgba(65, 225, 126, 0.301);
+    background-color: rgba(70, 241, 127, 0.301);
     padding: 6px 30px;
-    border:var(--border);
+    box-shadow: var(--shadow);
     font-weight: 500;
     border-radius: 3px;
+    margin-top: 10px;
     font-size: 0.8rem;
 }   
 .adminRightNav
 {
-    flex:8
+    flex:8.2;
 }
 .adminRightNav
 {
-height:max-content;
+background-color: white;
+min-height:100%;
 padding: 10px 10px;
-
 }

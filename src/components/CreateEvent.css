@@ -9,12 +9,12 @@
 }
 .createEventTitle h3
 {
-    color: rgba(0, 0, 0, 0.686);
+    color: rgba(127, 129, 126, 0.651);
     padding: 8px 20px;
-    text-align: center;
-    border: var(--border);
+    font-size: 1.5rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(192, 192, 192, 0.308);
     background-color: rgb(255, 255, 255);
-    border-radius: 3px;
     /* box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.349); */
    
 }
@@ -129,4 +129,14 @@
     background-color: white !important;
     box-shadow: var(--shadow);
     border-radius: 3px;
+}
+.loading div
+{
+    background-color: white;
+    display: grid;
+place-items: center;
+padding:20px;
+border-radius:10px;
+color:cornflowerblue
+    
 }

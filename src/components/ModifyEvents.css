@@ -25,25 +25,48 @@
 }
 .table table
 {
-    width: 1300px;
-    border-collapse: collapse;
+    width: max-content;
+    border-collapse: separate;
+    border-spacing: 0px 8px;
 }
-.table table th
+.table th
 {
     font-size: .7rem;
-    padding: 8px 10px;
+    padding: 12px 20px;
     background-color: white;
-    border-bottom:10px solid whitesmoke ;
+    border-top: var(--border1);
+    border-bottom: var(--border1);
+    text-align: center;
+    color: rgba(0, 0, 0, 0.63);
 }
-.table table tr
+.table th:first-child,.table td:first-child
+{
+    border-left: var(--border1);
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+.table th:last-child,.table td:last-child
+{
+    border-top-right-radius: 10px;
+    border-right: var(--border1);
+    border-bottom-right-radius: 10px;
+}
+.table tr
 {
     background-color: white;
-    padding: 5px 10px;
-    border-bottom:10px solid whitesmoke ;
 }
-.table table td{
+.table tr:hover
+{
+    cursor:pointer;
+    box-shadow: 1px 3px 10px rgba(0, 0, 0, 0.158);
+    border-radius: 20px;
+}
+.table td{
     font-size: 0.7rem;
-    padding: 5px 10px;
+    border-top: var(--border1);
+    border-bottom: var(--border1);
+    padding: 20px 20px;
+    text-align: center;
 }
 
 .tableWrap
@@ -54,11 +77,24 @@
 .tableUpdate
 {
     border: none;
+    color:rgb(0, 0, 0);
     box-shadow: var(--shadow);
-    background-color: var(--primary);
+    background-color: #bcffc5;
     font-size: 0.7rem;
-    border-radius: 20px;
-    padding: 5px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.tableUpdate:hover
+{
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.205);
+}
+.tableDelete
+{
+    background-color: #ff9c9c;
 }
 .hr
 {
@@ -70,4 +106,10 @@
 .uploadedImg
 {
     width: 150px;
+}
+.userProfile
+{
+    width: 40px;
+    border-radius: 5px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.144);
 }

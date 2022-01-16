@@ -27,7 +27,7 @@ function Users({ users }) {
             <tr>
               <td>{index}</td>
               <td>
-                <img src={u.photo} alt="" style={{ width: "50px" }} />
+                <img src={u.photo} alt="" className="userProfile"/>
               </td>
               <td>{u.name}</td>
               <td>{u.rollno}</td>
@@ -39,8 +39,8 @@ function Users({ users }) {
               <td>{u.date?.toDate().toLocaleDateString()}</td>
               <td>
                 <button
-                  style={{ backgroundColor: "red", color: "white" }}
-                  className="tableUpdate"
+                 
+                  className="tableUpdate tableDelete"
                   onClick={async () => {
                     //await deleteDoc(doc(db, "users", userid[index]));
 

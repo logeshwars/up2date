@@ -31,7 +31,7 @@ function CreateEvent() {
 const storage = getStorage();
     const upload =ref(storage, `images/${shareImage.name}`)
    
-const uploadTask = uploadBytesResumable(upload, shareImage.image);
+const uploadTask = uploadBytesResumable(upload, shareImage);
 
 uploadTask.on('state_changed', 
   (snapshot) => {
@@ -107,7 +107,7 @@ uploadTask.on('state_changed',
                     />
                       {!shareImage && (
                     <p>
-                      <label  className="upImage" htmlFor="image">Select a image for share</label>
+                      <label  className="upImage" htmlFor="image">Select a image for Poster</label>
                     </p>)}
                     {shareImage && (
                       <img className="uploadedImg" alt="" src={URL.createObjectURL(shareImage)} />

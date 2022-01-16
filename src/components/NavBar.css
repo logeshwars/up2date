@@ -110,6 +110,7 @@
     .profile
     {
         height: max-content;
+        cursor: pointer;
     }
     .profile li div
     {
@@ -129,7 +130,7 @@
         width: 20px;
         border-radius: 50%;
     }
-    .profile:hover .profileInner
+    .profile:hover .profileInner,.profile:focus .profileInner
     {
         display: block;
     }
@@ -143,7 +144,7 @@
         right: 30px;
         margin-top: 2px;
         border-radius: 3px;
-        display: none;
+        display: block;
     }
     .profileInner li{
         text-align: left;

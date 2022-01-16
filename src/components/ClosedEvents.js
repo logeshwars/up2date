@@ -1,13 +1,25 @@
 import React,{useState,useEffect} from 'react'
 import date from '../util/currentDate'
 import './ModifyEvents.css'
-function ClosedEvents({events}) {
-    const[event,setEvent]=useState([]);
+import {db} from "../firebase";
+import {collection} from "firebase/firestore";
+import {onSnapshot} from "firebase/firestore";
+function ClosedEvents() {
+    const[events,setEvents]=useState([]);
     useEffect(()=>{
-    events.forEach((doc) => {
-        if(date>doc.data().enddate)
-        setEvent((prev)=>[...prev,doc.data()])
-      });
+        onSnapshot(
+            collection(db, "events"), 
+            (snapshot) => {
+              setEvents([])
+              snapshot.forEach((doc) => {
+                if(date>=new Date(doc.data().enddate))
+                setEvents((prev) => [...prev, doc.data()]);
+              });
+             
+            },
+            (error) => {
+              console.log(error);
+            });
     },[events])
     return (
         <div className='modifyEvents'>
@@ -28,8 +40,8 @@ function ClosedEvents({events}) {
                     <th>Closing Date</th>
                     <th>Registering</th>
                 </tr>
-             {event.map((e,index)=>
-                (<tr>
+             {events.map((e,index)=>
+                (<tr key={index}>
                     <td>{index}</td>
                     <td>{e.title}</td>
                     <td><p className='tableWrap'>{e.description}

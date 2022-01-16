@@ -3,14 +3,6 @@ import { db } from "../firebase";
 import { doc, deleteDoc } from "firebase/firestore";
 import './ModifyEvents.css'
 function DeleteEvents({events}) {
-    const[event,setEvent]=useState([]);
-    const [eventid,setEventId]=useState([])
-    useEffect(()=>{
-    events.forEach((doc) => {
-        setEvent((prev)=>[...prev,doc.data()])
-        setEventId((prev)=>[...prev,doc.id])
-      });
-    },[events])
     return (
         <div className='modifyEvents'>
             <div className="createEventTitle">
@@ -31,7 +23,7 @@ function DeleteEvents({events}) {
                     <th>Registering</th>
                     <th>Update</th>
                 </tr>
-             {event.map((e,index)=>
+             {events.map((e,index)=>
                 (<tr>
                     <td>{index}</td>
                     <td>{e.title}</td>
@@ -47,12 +39,7 @@ function DeleteEvents({events}) {
                     <td>{e.needed}</td>
                     <td>
                 <button
-                  style={{ backgroundColor: "red", color: "white" }}
-                  className="tableUpdate"
-                  onClick={async () => {
-                    await deleteDoc(doc(db, "events", eventid[index]));
-
-                  }}
+                  className="tableUpdate tableDelete"
                 >
                   Remove
                 </button>
