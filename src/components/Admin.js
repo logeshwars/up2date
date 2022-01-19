@@ -78,7 +78,7 @@ function Admin() {
   return (
     <div className="admin">
       <div className="sideNav">
-        {gotoMain && <Navigate to="/" replace />}
+        {/*gotoMain && <Navigate to="/" replace />*/}
         <div>
           <img
             alt=""
@@ -93,7 +93,10 @@ function Admin() {
         <div>
           <button
             className="navBtns"
-            style={{ boxShadow: navNo===1&&"var(--shadow)", borderLeft:  navNo===1&&"4px solid var(--primary)",}}
+            style={{
+              boxShadow: navNo === 1 && "var(--shadow)",
+              borderLeft: navNo === 1 && "4px solid var(--primary)",
+            }}
             onClick={(e) => {
               setNavNo(1);
             }}
@@ -104,9 +107,11 @@ function Admin() {
         </div>
         <div>
           <button
-         
             className="navBtns"
-            style={{ boxShadow: navNo===2&&"var(--shadow)", borderLeft:  navNo===2&&"4px solid var(--primary)",}}
+            style={{
+              boxShadow: navNo === 2 && "var(--shadow)",
+              borderLeft: navNo === 2 && "4px solid var(--primary)",
+            }}
             onClick={(e) => {
               setNavNo(2);
             }}
@@ -116,37 +121,53 @@ function Admin() {
           </button>
         </div>
         <div>
-          <button className="navBtns" 
-           style={{ boxShadow: navNo===3&&"var(--shadow)", borderLeft:  navNo===3&&"4px solid var(--primary)",}}
-           
-          onClick={() => setNavNo(3)}>
+          <button
+            className="navBtns"
+            style={{
+              boxShadow: navNo === 3 && "var(--shadow)",
+              borderLeft: navNo === 3 && "4px solid var(--primary)",
+            }}
+            onClick={() => setNavNo(3)}
+          >
             <img src="images/users.png" alt="" className="iconImage" />
             <span>Users details</span>
           </button>
         </div>
         <div>
-          <button className="navBtns"
-           style={{ boxShadow: navNo===4&&"var(--shadow)", borderLeft:  navNo===4&&"4px solid var(--primary)",}} 
-          onClick={() => setNavNo(4)}>
+          <button
+            className="navBtns"
+            style={{
+              boxShadow: navNo === 4 && "var(--shadow)",
+              borderLeft: navNo === 4 && "4px solid var(--primary)",
+            }}
+            onClick={() => setNavNo(4)}
+          >
             <img src="images/group.png" alt="" className="iconImage" />
             <span>Participations</span>
           </button>
         </div>
         <div>
           <button
-           style={{ boxShadow: navNo===5&&"var(--shadow)", borderLeft:  navNo===5&&"4px solid var(--primary)",}}
-           
-          className="navBtns" onClick={() => setNavNo(5)}>
+            style={{
+              boxShadow: navNo === 5 && "var(--shadow)",
+              borderLeft: navNo === 5 && "4px solid var(--primary)",
+            }}
+            className="navBtns"
+            onClick={() => setNavNo(5)}
+          >
             <img src="images/trash.png" alt="" className="iconImage" />
             <span>Delete events</span>
           </button>
         </div>
         <div>
           <button
-           className="navBtns" 
-           style={{ boxShadow: navNo===6&&"var(--shadow)", borderLeft:  navNo===6&&"4px solid var(--primary)",}}
-           
-           onClick={() => setNavNo(6)}>
+            className="navBtns"
+            style={{
+              boxShadow: navNo === 6 && "var(--shadow)",
+              borderLeft: navNo === 6 && "4px solid var(--primary)",
+            }}
+            onClick={() => setNavNo(6)}
+          >
             <img src="images/file.png" alt="" className="iconImage" />
             <span>Closed events</span>
           </button>
@@ -154,12 +175,20 @@ function Admin() {
       </div>
       <div className="adminRightNav">
         {navNo === 1 && <CreateEvent />}
-        {navNo === 2 && <ModifyEvents setNavNo={(no)=>setNavNo(no)} setEditEvent={(event)=>setEditEvent(event)} setEditEventId={(id)=>setEditEventId(id)} events={events} eventsId={eventsId} />}
-        {navNo === 3 && <Users users={users}  usersId/>}
+        {navNo === 2 && (
+          <ModifyEvents
+            setNavNo={(no) => setNavNo(no)}
+            setEditEvent={(event) => setEditEvent(event)}
+            setEditEventId={(id) => setEditEventId(id)}
+            events={events}
+            eventsId={eventsId}
+          />
+        )}
+        {navNo === 3 && <Users users={users} usersId />}
         {navNo === 4 && <Participation events={events} />}
         {navNo === 5 && <DeleteEvents events={events} eventsId={eventsId} />}
         {navNo === 6 && <ClosedEvents />}
-        {navNo === 7 && <EditEvents eventId={editEventId} event={editEvent}/>}
+        {navNo === 7 && <EditEvents eventId={editEventId} event={editEvent} />}
       </div>
     </div>
   );
