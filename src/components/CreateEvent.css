@@ -9,13 +9,14 @@
 }
 .createEventTitle h3
 {
-    color: rgba(127, 129, 126, 0.651);
+    color: rgba(0, 0, 0, 0.89);
     padding: 8px 20px;
     font-size: 1.5rem;
-    text-align: left;
+    text-align: center;
+    border-radius: 3px;
     border-bottom: 1px solid rgba(192, 192, 192, 0.308);
-    background-color: rgb(255, 255, 255);
-    /* box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.349); */
+    background-image:linear-gradient(rgb(182, 248, 176),rgb(144, 250, 167));
+ box-shadow: 1px 1px 3px rgba(49, 157, 245, 0.137); 
    
 }
 .eventInputs
@@ -51,8 +52,9 @@
     background-color: #15f3333d;
     padding: 8px 10px ;
     border-radius: 3px;
-    color:green;
-
+    color:rgb(0, 0, 0);
+    min-width: 200px;
+    text-align: center;
     border: 1px solid var(--primary);
 }
 .eventInsideButtons
@@ -74,15 +76,15 @@
     border-top-left-radius: 3px;
     border-bottom-left-radius:3px;
 }
-.eventInsideButtons button:first-child:hover, .eventInsideButtons button:first-child:focus
+.eventInsideButtons button:first-child:hover, .btnyes
 {
-    background-color: var(--primary);
-    color: black;
+    background-color: var(--primary) !important;
+    color: black !important;
 }
-.eventInsideButtons button:last-child:hover, .eventInsideButtons button:last-child:focus
+.eventInsideButtons button:last-child:hover, .btnno
 {
-    background-color: red;
-    color: white;
+    background-color: red !important;
+    color: white !important;
 }
 .eventInsideButtons button:last-child
 {
@@ -130,13 +132,16 @@
     box-shadow: var(--shadow);
     border-radius: 3px;
 }
-.loading div
+.loading
 {
-    background-color: white;
-    display: grid;
+background-color: white;
+display: grid;
 place-items: center;
 padding:20px;
 border-radius:10px;
 color:cornflowerblue
-    
+}
+.loading img
+{
+    width: 300px;
 }

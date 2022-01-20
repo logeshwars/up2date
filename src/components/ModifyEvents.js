@@ -1,9 +1,31 @@
-import React from 'react'
+import React,{ useEffect, useState } from 'react'
 import date from '../util/currentDate'
-import { useEffect, useState } from 'react/cjs/react.development'
 import './ModifyEvents.css'
-function ModifyEvents({events,eventsId,setNavNo,setEditEventId,setEditEvent}) {
-   console.log(eventsId)
+import { db } from "../firebase";
+import { collection} from "firebase/firestore";
+import {onSnapshot } from "firebase/firestore";
+function ModifyEvents({setNavNo,setEditEventId,setEditEvent}) {
+    const [events,setEvents]=useState([]);
+    const [eventsId,setEventsId]=useState([]);
+    useEffect(()=>
+  {
+    onSnapshot(
+        collection(db, "events"), 
+        (snapshot) => {
+          setEvents([])
+          setEventsId([])
+          snapshot.forEach((doc) => {
+            setEvents((prev) => [...prev, doc.data()]);
+            setEventsId((prev) => [...prev, doc.id]);
+            }
+  
+          );
+         
+        },
+        (error) => {
+          console.log(error);
+        });
+  },[])
     return (
         <div className='modifyEvents'>
             <div className="createEventTitle">

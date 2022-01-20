@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { auth} from "../firebase";
 import { Navigate } from 'react-router-dom';
-function AdminNav() {
+function AdminNav({setNav}) {
     const[gotoMain,setgotoMain]=useState(false);
     const signOut=()=>{
         auth
@@ -16,7 +16,9 @@ function AdminNav() {
         <div className="navBar">
           <div className='navBarInside'>
              {gotoMain&&(<Navigate to="/" replace />)}
-        <div>
+             
+        <div className='flex'>
+        <button className='menuButton' onClick={()=>setNav()}><img src="images/list.png" alt=""/></button>
           <span className="logo">
             up<span className="logoMiddle">2</span>date
           </span>{" "}

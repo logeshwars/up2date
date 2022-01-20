@@ -4,9 +4,10 @@ import { db } from "../firebase";
 import { collection } from "firebase/firestore";
 import { onSnapshot } from "firebase/firestore";
 import "./Participations.css";
-function Participation({ events }) {
+function Participation({ events,eventsId,users }) {
   const [userParticipations, setUserParticipations] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(events[0]);
+  const [selectedEventId, setSelectedEventId] = useState(eventsId[0]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [event, setEvent] = useState([]);
   useEffect(() => {
@@ -25,10 +26,14 @@ function Participation({ events }) {
   }, []);
   const handleChange = () => {
    // console.log(userParticipations);
-    setEvent(
-      userParticipations.filter((event) => event.title === selectedEvent.title)
-    );
+   setEvent([])
+    let tempevents=userParticipations.filter((p) =>p.eventId===selectedEventId);
+    const holdData=(tevent)=>
+    setEvent(perv=>[...perv,...users.filter((p) =>p.email===tevent.email)]);
+    tempevents.forEach(holdData)
+   
   };
+  console.log(event);
   return (
     <div className="modifyEvents">
       <div className="createEventTitle">
@@ -64,6 +69,7 @@ function Participation({ events }) {
                 className="selectBoxDropDownItem"
                 onClick={() => {
                   setSelectedEvent(event);
+                  setSelectedEventId(eventsId[index])
                   setShowDropdown(false);
                   handleChange();
                 }}
@@ -110,8 +116,7 @@ function Participation({ events }) {
                 <td>{}</td>
                 <td>
                   <button
-                    style={{ backgroundColor: "red", color: "white" }}
-                    className="tableUpdate"
+                  className="tableUpdate tableDelete"
                   >
                     Remove
                   </button>

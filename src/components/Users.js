@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./ModifyEvents.css";
 import { db } from "../firebase";
 import { doc, deleteDoc } from "firebase/firestore";
-function Users({ users }) {
+function Users({ users,usersId,toast }) {
   return (
     <div className="modifyEvents">
       <div className="createEventTitle">
@@ -10,6 +10,7 @@ function Users({ users }) {
       </div>
       <div className="table">
         <table>
+          <thead>
           <tr>
             <th>NO</th>
             <th>Profile</th>
@@ -23,6 +24,8 @@ function Users({ users }) {
             <th>Entered Date</th>
             <th>Update</th>
           </tr>
+          </thead>
+          <tbody>
           {users.map((u, index) => (
             <tr>
               <td>{index}</td>
@@ -42,8 +45,7 @@ function Users({ users }) {
                  
                   className="tableUpdate tableDelete"
                   onClick={async () => {
-                    //await deleteDoc(doc(db, "users", userid[index]));
-
+                    await deleteDoc(doc(db, "users", usersId[index])).then(()=>toast());
                   }}
                 >
                   Remove
@@ -51,6 +53,7 @@ function Users({ users }) {
               </td>
             </tr>
           ))}
+          </tbody>
         </table>
       </div>
     </div>

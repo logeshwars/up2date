@@ -3,7 +3,7 @@ import Login from "./Login";
 import { auth } from "../firebase";
 import "./NavBar.css";
 import { onAuthStateChanged } from "firebase/auth";
-import { Navigate } from "react-router-dom";
+import { Navigate,Link } from "react-router-dom";
 function NavBar({ admin, user }) {
   const [showLogin, setShowLogin] = useState(false);
   const showlogin = () => {
@@ -57,9 +57,11 @@ function NavBar({ admin, user }) {
                   <span>{user.name}</span>
                 </div>
                 <ul className="profileInner">
+                  <Link to="/myevents">
                   <li>
                     <span>My Events</span>
                   </li>
+                  </Link>
                   <li onClick={()=>signOut()}><span>Log out</span></li>
                 </ul>
               </li>

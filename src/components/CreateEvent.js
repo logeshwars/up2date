@@ -1,8 +1,11 @@
 import React,{useState} from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./CreateEvent.css";
 import { db} from "../firebase";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { collection,doc, setDoc, Timestamp } from "firebase/firestore"; 
+import Loading from "./Loading";
 function CreateEvent() {
   const [shareImage, setShareImage] = useState("");
   const [title,setTitle]=useState("");
@@ -16,6 +19,8 @@ function CreateEvent() {
   const [rNeed,setRNeed]=useState("YES")
   const [downloadUrl,setdownloadURL]=useState("")
   const [loading,setLoading]=useState(false);
+  const notify = () => toast.success("Created Successfully");
+
   const handleImage = (e) => {
     const image = e.target.files[0];
     if (image === "" || image === undefined) {
@@ -80,6 +85,7 @@ uploadTask.on('state_changed',
                  setEDate("");
                  setRDate("");
                  setLoading(false);
+                 notify();
               });
             }
          send();
@@ -156,8 +162,8 @@ uploadTask.on('state_changed',
           <div className="eventInside">
             <label>Registeration Needed or not?</label>
             <div className="eventInsideButtons">
-            <button onClick={()=>setRNeed("YES")}>Yes</button>
-            <button  onClick={()=>setRNeed("NO")}>No</button>
+            <button className={rNeed==="YES"&&"btnyes"}  onClick={()=>setRNeed("YES")}>Yes</button>
+            <button className={rNeed==="NO"&&"btnno"}  onClick={()=>setRNeed("NO")}>No</button>
             </div>
            
           </div>
@@ -168,10 +174,9 @@ uploadTask.on('state_changed',
         </div>
       </div>
       {loading&&
-      <div className="popup" style={{backgroundColor:"white"}}>
-        <img width={500} src="https://miro.medium.com/max/1400/0*ptDX0HfJCYpo9Pcs.gif" alt=""/>
-        </div>
+    <Loading/>
 }
+<ToastContainer />
     </div>
   );
 }

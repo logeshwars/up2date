@@ -1,8 +1,31 @@
 import React,{useState,useEffect} from 'react'
 import { db } from "../firebase";
 import { doc, deleteDoc } from "firebase/firestore";
+import { collection} from "firebase/firestore";
+import {onSnapshot } from "firebase/firestore";
 import './ModifyEvents.css'
-function DeleteEvents({events}) {
+function DeleteEvents({toast}) {
+    const [events,setEvents]=useState([]);
+    const [eventsId,setEventsId]=useState([]);
+    useEffect(()=>
+  {
+    onSnapshot(
+        collection(db, "events"), 
+        (snapshot) => {
+          setEvents([])
+          setEventsId([])
+          snapshot.forEach((doc) => {
+            setEvents((prev) => [...prev, doc.data()]);
+            setEventsId((prev) => [...prev, doc.id]);
+            }
+  
+          );
+         
+        },
+        (error) => {
+          console.log(error);
+        });
+  },[])
     return (
         <div className='modifyEvents'>
             <div className="createEventTitle">
@@ -40,6 +63,8 @@ function DeleteEvents({events}) {
                     <td>
                 <button
                   className="tableUpdate tableDelete"
+                  onClick={async () => {
+                    await deleteDoc(doc(db, "events", eventsId[index])).then(()=>{toast()})}}
                 >
                   Remove
                 </button>

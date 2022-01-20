@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./Admin.css";
+import AdminNav from "./AdminNav";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db } from "../firebase";
 import date from '../util/currentDate'
 import { collection} from "firebase/firestore";
 import {onSnapshot } from "firebase/firestore";
-import { Navigate } from "react-router-dom";
 import CreateEvent from "./CreateEvent";
 import ModifyEvents from "./ModifyEvents";
 import DeleteEvents from "./DeleteEvents";
@@ -13,6 +13,8 @@ import ClosedEvents from "./ClosedEvents";
 import Users from "./Users";
 import Participation from "./Participation";
 import EditEvents from "./EditEvents";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 function Admin() {
   const [gotoMain, setgotoMain] = useState(false);
   const [admin, setAdmin] = useState("");
@@ -23,6 +25,12 @@ function Admin() {
   const [usersId,setUsersId]=useState([]);
   const [editEventId,setEditEventId]=useState();
   const [editEvent,setEditEvent]=useState();
+  const [showNav,setShowNav]=useState(false);
+  const slideLeft={  left:-280+"px"}
+  const slideRight={  left:0+"px"}
+  const notify = () => toast.success("Done Successfully");
+  const deleted = () => toast.error("Deleted Successfully");
+
   useEffect(()=>
   {
     onSnapshot(
@@ -75,9 +83,19 @@ function Admin() {
       return s;
     }
   }
+  const setNav=()=>
+  {
+    if(showNav)
+    setShowNav(false)
+    else
+    setShowNav(true);
+  }
   return (
+    <>
+      <AdminNav setNav={setNav}/>
     <div className="admin">
-      <div className="sideNav">
+     
+      <div className="sideNav" style={showNav?slideRight:slideLeft}>
         {/*gotoMain && <Navigate to="/" replace />*/}
         <div>
           <img
@@ -184,13 +202,15 @@ function Admin() {
             eventsId={eventsId}
           />
         )}
-        {navNo === 3 && <Users users={users} usersId />}
-        {navNo === 4 && <Participation events={events} />}
-        {navNo === 5 && <DeleteEvents events={events} eventsId={eventsId} />}
+        {navNo === 3 && <Users toast={deleted} users={users} usersId={usersId} />}
+        {navNo === 4 && <Participation toast={deleted} events={events} users={users} eventsId={eventsId}/>}
+        {navNo === 5 && <DeleteEvents toast={deleted} events={events} eventsId={eventsId} />}
         {navNo === 6 && <ClosedEvents />}
-        {navNo === 7 && <EditEvents eventId={editEventId} event={editEvent} />}
+        {navNo === 7 && <EditEvents toast={notify} eventId={editEventId}  setNavNo={(no) => setNavNo(no)} event={editEvent} />}
       </div>
+      <ToastContainer />
     </div>
+    </>
   );
 }
 

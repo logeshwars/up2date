@@ -4,8 +4,9 @@
     
     font-size: 0.8;
     margin-top: 10px;
-    width: 78.5vw;
+    width: 97vw;
     overflow-x: scroll;
+    min-height:80vh;
 }
 .table::-webkit-scrollbar
 {
@@ -26,6 +27,7 @@
 .table table
 {
     width: max-content;
+    min-width: 100%;
     border-collapse: separate;
     border-spacing: 0px 8px;
 }
@@ -33,10 +35,11 @@
 {
     font-size: .7rem;
     padding: 12px 20px;
-    background-color: white;
+    background-color: rgba(0, 255, 0, 0.24);
     border-top: var(--border1);
     border-bottom: var(--border1);
     text-align: center;
+    font-weight:bolder;
     color: rgba(0, 0, 0, 0.63);
 }
 .table th:first-child,.table td:first-child
